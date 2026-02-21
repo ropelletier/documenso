@@ -48,6 +48,7 @@ const ZNumberFieldFormSchema = ZNumberFieldMeta.pick({
   label: true,
   placeholder: true,
   value: true,
+  fieldId: true,
   numberFormat: true,
   fontSize: true,
   textAlign: true,
@@ -109,6 +110,7 @@ export const EditorFieldNumberForm = ({
       label: value.label || '',
       placeholder: value.placeholder || '',
       value: value.value || '',
+      fieldId: value.fieldId || '',
       numberFormat: value.numberFormat || null,
       fontSize: value.fontSize || DEFAULT_FIELD_FONT_SIZE,
       textAlign: value.textAlign ?? FIELD_DEFAULT_GENERIC_ALIGN,
@@ -248,6 +250,26 @@ export const EditorFieldNumberForm = ({
           </div>
 
           <EditorGenericReadOnlyField formControl={form.control} />
+
+          <FormField
+            control={form.control}
+            name="fieldId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <Trans>Field ID</Trans>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="bg-background"
+                    placeholder={t`Unique field identifier`}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Validation section */}
           <section className="space-y-2">

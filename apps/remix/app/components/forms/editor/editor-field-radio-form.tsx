@@ -38,6 +38,7 @@ import {
 
 const ZRadioFieldFormSchema = ZRadioFieldMeta.pick({
   label: true,
+  fieldId: true,
   direction: true,
   values: true,
   required: true,
@@ -79,6 +80,7 @@ export const EditorFieldRadioForm = ({
     mode: 'onChange',
     defaultValues: {
       label: value.label || '',
+      fieldId: value.fieldId || '',
       values: value.values || [{ id: 1, checked: false, value: t`Default value` }],
       required: value.required || false,
       readOnly: value.readOnly || false,
@@ -164,6 +166,22 @@ export const EditorFieldRadioForm = ({
           <EditorGenericRequiredField formControl={form.control} />
 
           <EditorGenericReadOnlyField formControl={form.control} />
+
+          <FormField
+            control={form.control}
+            name="fieldId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <Trans>Field ID</Trans>
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder={t`Unique field identifier`} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <section className="space-y-2">
             <div className="-mx-4 mb-4 mt-2">

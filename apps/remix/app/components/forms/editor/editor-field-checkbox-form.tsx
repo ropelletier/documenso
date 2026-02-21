@@ -46,6 +46,7 @@ import {
 
 const ZCheckboxFieldFormSchema = ZCheckboxFieldMeta.pick({
   label: true,
+  fieldId: true,
   direction: true,
   validationRule: true,
   validationLength: true,
@@ -93,6 +94,7 @@ export const EditorFieldCheckboxForm = ({
     mode: 'onChange',
     defaultValues: {
       label: value.label || '',
+      fieldId: value.fieldId || '',
       direction: value.direction || 'vertical',
       validationRule: value.validationRule || '',
       validationLength: value.validationLength || 0,
@@ -293,6 +295,22 @@ export const EditorFieldCheckboxForm = ({
           </div>
 
           <EditorGenericReadOnlyField formControl={form.control} />
+
+          <FormField
+            control={form.control}
+            name="fieldId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <Trans>Field ID</Trans>
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="Unique field identifier" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <section className="space-y-2">
             <div className="-mx-4 mb-4 mt-2">
