@@ -82,6 +82,9 @@ declare namespace NodeJS {
 
     NEXT_PUBLIC_USE_INTERNAL_URL_BROWSERLESS?: string;
 
+    NEXT_PUBLIC_CUSTOM_CSS_URL?: string;
+    NEXT_PUBLIC_CUSTOM_JS_URL?: string;
+
     /**
      * Redis / BullMQ environment variables
      */
