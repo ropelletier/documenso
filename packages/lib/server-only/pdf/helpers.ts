@@ -187,6 +187,21 @@ const SHORT_DIRECTION_MAP: Record<string, string> = {
 };
 
 /*
+  Short value aliases for the numberFormat property.
+  The placeholder syntax splits on commas, so format strings containing commas
+  cannot be written directly. These aliases use underscores in place of commas.
+
+    1_234.56  → 123,456,789.00  (comma thousands separator, dot decimal)
+    1.234_56  → 123.456.789,00  (dot thousands separator, comma decimal)
+    123456_00 → 123456,789.00   (no thousands separator, comma decimal)
+*/
+const SHORT_NUMBER_FORMAT_MAP: Record<string, string> = {
+  '1_234.56': '123,456,789.00',
+  '1.234_56': '123.456.789,00',
+  '123456_00': '123456,789.00',
+};
+
+/*
   Properties whose values are coerced to numbers.
 */
 const NUMERIC_FIELDS = new Set([
@@ -221,6 +236,9 @@ const toTitleCase = (value: string): string =>
   Short textAlign values:    l → left,     r → right,    c → center
   Short verticalAlign values:t → top,      m → middle,   b → bottom
   Short direction values:    v → vertical, h → horizontal
+  Short numberFormat values: 1_234.56 → 123,456,789.00
+                             1.234_56 → 123.456.789,00
+                             123456_00 → 123456,789.00
 
   Label / placeholder / text values are decoded from underscore-encoded form:
   underscores are replaced with spaces and every word is title-cased,
@@ -267,6 +285,10 @@ export const parseFieldMetaFromPlaceholder = (
     } else if (property === 'direction') {
       // Accept "vertical"/"horizontal" and "v"/"h".
       parsedFieldMeta[property] = SHORT_DIRECTION_MAP[value] ?? value;
+    } else if (property === 'numberFormat') {
+      // Accept short aliases where underscores stand in for commas (commas cannot
+      // appear in placeholder options because they are the option delimiter).
+      parsedFieldMeta[property] = SHORT_NUMBER_FORMAT_MAP[value] ?? value;
     } else if (NUMERIC_FIELDS.has(property)) {
       const numValue = Number(value);
 

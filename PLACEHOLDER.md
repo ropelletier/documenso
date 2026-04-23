@@ -68,9 +68,19 @@ Both the full property name and the short alias are accepted. The `=` and `:` se
 | Short | Full | Type | Notes |
 |---|---|---|---|
 | `v` | `value` | string | Pre-filled number value |
-| `nf` | `numberFormat` | string | Display format (e.g. `1,234.56`) |
+| `nf` | `numberFormat` | string | Display format — see short aliases below |
 | `min` | `minValue` | number | Minimum allowed value |
 | `max` | `maxValue` | number | Maximum allowed value |
+
+##### Number format short aliases
+
+Because the placeholder syntax uses commas to separate options, format strings that contain commas cannot be written directly. Use these short aliases instead:
+
+| Short alias | Expands to | Description |
+|---|---|---|
+| `1_234.56` | `123,456,789.00` | Comma thousands separator, dot decimal |
+| `1.234_56` | `123.456.789,00` | Dot thousands separator, comma decimal |
+| `123456_00` | `123456,789.00` | No thousands separator, comma decimal |
 
 #### Radio and checkbox options
 
@@ -113,6 +123,7 @@ t:default_text_1    →  text:        "Default Text 1"
 | `textAlign` | `l` → `left`, `r` → `right`, `c` → `center` |
 | `verticalAlign` | `t` → `top`, `m` → `middle`, `b` → `bottom` |
 | `direction` | `v` → `vertical`, `h` → `horizontal` |
+| `numberFormat` | `1_234.56` → `123,456,789.00`, `1.234_56` → `123.456.789,00`, `123456_00` → `123456,789.00` |
 
 ### Examples
 
